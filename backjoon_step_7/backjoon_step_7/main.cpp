@@ -161,66 +161,65 @@
 //}
 
 //Problem # 5.
-#include <iostream>
-#include <string>
-#include <array>
-
-enum class GROUP_CHECKER
-{
-	NONE,
-	START,
-	END,
-	NOT,
-};
-int main()
-{
-	using std::string;
-	using std::cout;
-	using std::endl;
-	using std::cin;
-	using std::array;
-
-	int input_int = 0;
-	cin >> input_int;
-
-	string input;
-	getline(cin, input);
-
-	const int num_of_alphabet = (int)'z' - (int)'a' + 1;
-
-	array<GROUP_CHECKER, num_of_alphabet> group_cheker;
-	std::fill(group_cheker.begin(), group_cheker.end(), GROUP_CHECKER::NONE);
-
-	
-	int index_pre_c = -1;
-	for (const auto& c : input) {
-		int i = (int)c - (int)'a';
-		if (GROUP_CHECKER::NONE == group_cheker[i]) {
-			group_cheker[i] = GROUP_CHECKER::START;
-
-			if ( -1 != index_pre_c && GROUP_CHECKER::START == group_cheker[index_pre_c]) {
-				group_cheker[index_pre_c] = GROUP_CHECKER::END;
-			}	
-		}
-		else if(GROUP_CHECKER::END == group_cheker[i]){
-			group_cheker[i] = GROUP_CHECKER::NOT;
-		}
-		index_pre_c = i;
-	}
-
-	group_cheker[index_pre_c] = GROUP_CHECKER::END;
-
-	int ret = 0;
-	for (const GROUP_CHECKER& a : group_cheker) {
-		if (GROUP_CHECKER::END == a) {
-			ret++;
-		}
-	}
-	cout << ret <<endl;
-
-
-	return 0;
-}
+//#include <iostream>
+//#include <string>
+//#include <array>
+//
+//enum class GROUP_CHECKER
+//{
+//	NONE,
+//	START,
+//	END,
+//	NOT,
+//};
+//int main()
+//{
+//	using std::string;
+//	using std::cout;
+//	using std::endl;
+//	using std::cin;
+//	using std::array;
+//
+//	int input_int = 0;
+//	cin >> input_int;
+//
+//	string input;
+//	getline(cin, input);
+//
+//	const int num_of_alphabet = (int)'z' - (int)'a' + 1;
+//
+//	array<GROUP_CHECKER, num_of_alphabet> group_cheker;
+//	std::fill(group_cheker.begin(), group_cheker.end(), GROUP_CHECKER::NONE);
+//
+//	
+//	int index_pre_c = -1;
+//	for (const auto& c : input) {
+//		int i = (int)c - (int)'a';
+//		if (GROUP_CHECKER::NONE == group_cheker[i]) {
+//			group_cheker[i] = GROUP_CHECKER::START;
+//
+//			if ( -1 != index_pre_c && GROUP_CHECKER::START == group_cheker[index_pre_c]) {
+//				group_cheker[index_pre_c] = GROUP_CHECKER::END;
+//			}	
+//		}
+//		else if(GROUP_CHECKER::END == group_cheker[i]){
+//			group_cheker[i] = GROUP_CHECKER::NOT;
+//		}
+//		index_pre_c = i;
+//	}
+//
+//	group_cheker[index_pre_c] = GROUP_CHECKER::END;
+//
+//	int ret = 0;
+//	for (const GROUP_CHECKER& a : group_cheker) {
+//		if (GROUP_CHECKER::END == a) {
+//			ret++;
+//		}
+//	}
+//	cout << ret <<endl;
+//
+//	return 0;
+//}
 
 //Problem # 7.
 //#include <iostream>
@@ -261,4 +260,58 @@ int main()
 //		n /= 10;
 //	}
 //	return ret;
+//}
+
+
+//Problem # 9.
+//#include <iostream>
+//#include <string>
+//#include <array>
+//#include <algorithm>
+//#include <sstream>
+//using std::string;
+//using std::array;
+//typedef array<string, 8> CroatiaArray;
+//int main()
+//{
+//	using std::find;
+//	using std::cout;
+//	using std::endl;
+//	using std::cin;
+//
+//	string source_string;
+//	cin >> source_string;
+//	CroatiaArray croatia_array = { "c=","c-","dz=","d-","lj","nj","s=","z=" };
+//
+//	int occurrences = 0;
+//	size_t pos = 0;
+//	size_t pos2 = 0;
+//
+//	for (string str : croatia_array) {
+//		pos = 0;
+//		while (1) {
+//			pos2 = source_string.find(str, pos);
+//			if (pos2 != std::string::npos) {
+//				++occurrences;
+//				pos = pos2 + str.length();
+//				source_string.replace(pos2, str.length(), "//");
+//			}
+//			else {
+//				break;
+//			}
+//			
+//		}
+//
+//	}
+//
+//	//refer to http://www.martinbroadhurst.com/how-to-split-a-string-in-c.html
+//	std::stringstream ss(source_string);
+//	std::string item;
+//	while (std::getline(ss, item, '/')){
+//		if (0 != item.length()) {
+//			occurrences += item.length();
+//		}
+//	}
+//	std::cout << occurrences << std::endl;
+//	return 0;
 //}
