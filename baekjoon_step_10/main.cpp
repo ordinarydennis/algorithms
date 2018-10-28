@@ -78,8 +78,8 @@ int main()
 	}
 }
 */
-
-/* problem #3  time over
+/*
+// problem #3  time over
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -93,30 +93,37 @@ int main()
 	int first = 0, second = 0;
 	cin >> first >> second;
 
-	vector<int> v_int;
-
-	for (int i = 2; i <= second; i++) {
-		v_int.push_back(i);
+	vector<bool> v_int;
+	for (int n = 2; n <= second; n++) {
+		v_int.push_back(n);
 	}
 
-	for (auto e : v_int) {
-		if (sqrt(second) >= e && e > 0) {
-			int n = e;
-			while (n + e <= second) {
-				n += e;
-				v_int[n - 2] = 0;
-			}
+	for (int n = 2; n <= sqrt(second); n++) {
+		int i = n - 2;
+		if (false == v_int[i]) {
+			continue;
+		}
+
+		i = n * n - 2;
+		while (i <= second - 2) {
+			v_int[i] = false;
+			i += n;
 		}
 	}
 
 	for (int i = first; i <= second; i++) {
-		if (v_int[i - 2] == 0) continue;
-		cout << v_int[i - 2] << endl;
+		if (i < 2) {
+			continue;
+		}
+		if (v_int[i - 2]) {
+			printf("%d\n", i);
+		}
 	}
 }
 */
 
-/* problem #4
+/*
+// problem #4
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -135,26 +142,45 @@ int main()
 			break;
 		}
 
-		vector<int> v_int;
+		//vector<int> v_int;
+		//int n2 = input * 2;
+		//for (int i = 2; i <= n2; i++) {
+		//	v_int.push_back(i);
+		//}
+
+		//for (auto e : v_int) {
+		//	if (sqrt(n2) >= e && e > 0) {
+		//		int n = e;
+		//		while (n + e <= n2) {
+		//			n += e;
+		//			v_int[n - 2] = 0;
+		//		}
+		//	}
+		//}
+
 		int n2 = input * 2;
-		for (int i = 2; i <= n2; i++) {
-			v_int.push_back(i);
+
+		vector<bool> v_int;
+		for (int n = 2; n <= n2; n++) {
+			v_int.push_back(n);
 		}
 
-		for (auto e : v_int) {
-			if (sqrt(n2) >= e && e > 0) {
-				int n = e;
-				while (n + e <= n2) {
-					n += e;
-					v_int[n - 2] = 0;
-				}
+		for (int n = 2; n <= sqrt(n2); n++) {
+			int i = n - 2;
+			if (false == v_int[i]) {
+				continue;
+			}
+
+			i = n * n - 2;
+			while (i <= n2 - 2) {
+				v_int[i] = false;
+				i += n;
 			}
 		}
 
 		int count = 0;
 		for (int i = input + 1; i <= n2; i++) {
-			if (v_int[i - 2] == 0) continue;
-			
+			if (v_int[i - 2] == false) continue;
 			count++;
 		}
 
@@ -165,8 +191,8 @@ int main()
 }
 */
 
-
-/* problem #5 
+/*
+// problem #5 
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -180,32 +206,32 @@ int main()
 	int input = 0;
 	cin >> input;
 
-	static const int MAX = 10000;
+	static const int MAX = 100;
 
 	vector<bool> v_int;
-	for (int i = 2; i <= MAX; i++) {
-		v_int.push_back(i);
+	for (int n = 2; n <= MAX; n++) {
+		v_int.push_back(n);
 	}
 
-	for (int i = 0; i <= sqrt(MAX) - 2; i++) {
+	for (int n = 2; n <= sqrt(MAX); n++) {
+		int i = n - 2;
 		if (false == v_int[i]) {
 			continue;
 		}
 
-		int i2 = v_int[i * i];
-		while (i2 <= MAX) {
-			v_int[i2 - 2] = 0;
-			i2 += i2;
+		i = n * n - 2;
+		while (i <= MAX -2) {
+			v_int[i] = false;
+			i += n;
 		}
 	}
 
+	for (int i = 0; i <= MAX - 2; i++) {
 
-	for (auto e : v_int) {
-		cout << e << endl;
-	}
-	
-	for (int i = 0; i < input; i++) {
-	
+		if (v_int[i]) {
+			cout << i + 2 << endl;
+		}
+
 	}
 
 	return 0;
